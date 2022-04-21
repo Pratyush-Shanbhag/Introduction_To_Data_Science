@@ -1,4 +1,4 @@
-s = "DDEEBWLJFKWPJLZQNRQJ"
+'''s = "DDEEBWLJFKWPJLZQNRQJ"
 #s = "NJDTRNH"
 a = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
                 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 
@@ -42,3 +42,25 @@ print(l)
                     loc = i
 
 print("loc", loc, s[loc:loc+3])"""
+'''
+
+s = "FEED THE DOG AND CAT"
+a = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
+'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 
+'Z', ' ']
+
+r1 = 0
+r2 = 25
+e = 0
+l = []
+for chr in s:
+    e = (a.index(chr) + r1 + r2) % len(a)
+    l.append(e)
+    r1 += 1
+    if r1 % len(a) == len(a) - 1:
+        r2 += 1
+
+for i in l:
+    print(a[i], end='')
+
+print()
