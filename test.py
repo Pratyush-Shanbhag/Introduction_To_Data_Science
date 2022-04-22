@@ -45,11 +45,10 @@ a = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
         ' ', '.', ',', ';', '!', '?', '(', ')', '-', '\'', '\\', '"']
 l = []
-#for i in range(len(s)-4):
-for i in range(104):
-    if ord(s[i]) + 3 == ord(s[i+3]):
+for i in range(len(s)-4):
+    if ord(s[i]) + 4 == ord(s[i+4]):
         l.append(i+1)
-        print(s[i], s[i+3])
+        print(s[i], s[i+4])
 loc = -1
 n = 0
 b = True
@@ -94,8 +93,6 @@ a2 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 e = 0
 l = []
 def encrypt(a, s, r1 = 0, r2 = 25):
-    global l
-    l = []
     e = 0
     for chr in s:
         if chr != '\n':
@@ -116,14 +113,10 @@ def encrypt(a, s, r1 = 0, r2 = 25):
     print()
 s = "FEED THE DOG AND CAT"
 encrypt(a2, s)
-s = ''.join([a[elem] for elem in l])
-print("join:", s)
-encrypt(a2, s)
-print()
 
-'''
+
 n = 19 - 5
 #c = (a.index(s[j]) + n) % (26+j)
 c = (l[6] + n) % (26 + 6)
 print(c)
-print(a2[c])'''
+print(a2[c])
