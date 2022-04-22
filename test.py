@@ -45,10 +45,11 @@ a = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
         ' ', '.', ',', ';', '!', '?', '(', ')', '-', '\'', '\\', '"']
 l = []
-for i in range(len(s)-4):
-    if ord(s[i]) + 4 == ord(s[i+4]):
+#for i in range(len(s)-4):
+for i in range(104):
+    if ord(s[i]) + 3 == ord(s[i+3]):
         l.append(i+1)
-        print(s[i], s[i+4])
+        print(s[i], s[i+3])
 loc = -1
 n = 0
 b = True
@@ -84,7 +85,7 @@ print("loc", loc, s[loc:loc+3])"""
 
 
 #s = "FEED THE DOG AND CAT"
-a = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
+a2 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 
 'Z', ' ']
 
@@ -92,16 +93,37 @@ a = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 #r2 = 25
 e = 0
 l = []
-def encrypt(s = "FEED THE DOG AND CAT", r1 = 0, r = 25):
+def encrypt(a, s, r1 = 0, r2 = 25):
+    global l
+    l = []
     e = 0
     for chr in s:
-        e = (a.index(chr) + r1 + r2) % len(a)
-        l.append(e)
-        r1 += 1
-        if r1 % len(a) == len(a) - 1:
-            r2 += 1
+        if chr != '\n':
+            e = (a.index(chr) + r1 + r2) % len(a)
+            l.append(e)
+            r1 += 1
+            if r1 % len(a) == len(a) - 1:
+                r2 += 1
+        else:
+            l.append(-1)
 
     for i in l:
-        print(a[i], end='')
+        if i == -1:
+            print()
+        else:
+            print(a[i], end='')
 
     print()
+s = "FEED THE DOG AND CAT"
+encrypt(a2, s)
+s = ''.join([a[elem] for elem in l])
+print("join:", s)
+encrypt(a2, s)
+print()
+
+'''
+n = 19 - 5
+#c = (a.index(s[j]) + n) % (26+j)
+c = (l[6] + n) % (26 + 6)
+print(c)
+print(a2[c])'''
