@@ -1,43 +1,102 @@
-f = open("encrypt.txt")
+# (a + x) mod m = b
+# x = (b - a) mod m
+
+# (initial + slide + rotors) % 48 = encrypted
+# rotors = (encrypted - (initial + slide)) % 48
+
+'''f = open("encrypt.txt")
 s2 = f.read()
-f.close()
+f.close()'''
+from distutils.command.build_scripts import first_line_re
+
+
 a = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
         'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
         ' ', '.', ',', ';', '!', '?', '(', ')', '-', '\'', '\\', '"']
 
+# space: 36
+# N at 13
+
 print(len(a))
 
-s = "ALAN TURING WAS A COMPUTER"
+s = "BIRCH IS THE GOAT OF A COMPUTER WORLD"
 print(len(s))
 
-def encrypt(a, s, r1 = 0, r2 = 25):
+def encrypt(a, s, r1 = 0, r2 = 47):
     e = 0
-    l = []
+    string = ""
     for chr in s:
             e = (a.index(chr) + r1 + r2) % len(a)
-            l.append(e)
+            string += a[e]
             r1 += 1
             if r1 % len(a) == len(a) - 1:
                 r2 += 1
 
+    return string
 
-    for i in l:
-        print(a[i], end='')
-
-    print()
-
-encrypt(a, s)
+firstRotor = 46
+secondRotor = 19
+es = encrypt(a, s, firstRotor, secondRotor)
+print(es)
 
 
-def count(s, num):
+def count(es, num):
     num = num + 1
     l = []
     for i in range(len(s)-num):
-        if ord(s[i]) == ord(s[i+num]):
-            l2.append(i)
+        if ord(es[i]) + num == ord(es[i+num]):
+            l.append(i)
             #print(s[i], s[i+num])
-    print(l2)
+    print(l)
+    return l
+
+indices = count(es, 1)
+num = 0
+for i in indices:
+    r1 = a.index(es[i]) - (a.index(" ") + i)
+    #print(r1)
+    #print(36 - )
+    num = r1 % 48
+    print(r1 % 48)
+    print("a" + a[(a.index(" ") + r1 + i) % 48] + "b")
+
+    r2 = a.index(es[i+1]) - (0 + i+1)
+    #print(r2)
+    print(r2 % 48)
+    #print((3-5) % 27)
+
+    print(es[i])
+    print((36 + i + 47) % 48)
+    print(a[(36 + i + 47) % 48])
+
+
+decrypted = ""
+index = 0
+for i in range(len(es)):
+    # initial = (encrypted - (rotors + slide)) % 48
+    index = (a.index(es[i]) - (num + i)) % 48
+    decrypted += a[index]
+
+print()
+print(decrypted)
+print()
+
+
+
+def func(a, es, decrypted):
+    for p in range(len(a)):
+        for q in range(len(a)):
+            if(encrypt(a, decrypted, p, q) == es):
+                return (p, q)
+    return (-1, -1)
+
+#print(encrypt(a[:26]+[' '], "E THE T", a.index('N'), a.index('X')))
+
+print(func(a, es, decrypted))
+
+
+
 
 
 '''
