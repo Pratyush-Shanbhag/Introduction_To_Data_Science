@@ -52,6 +52,8 @@ class Process {
                             "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
                             "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", " ", ".", ",",
                             ";", "!", "?", "(", ")", "-", "\'", "\""};
+        
+        int length = 47;
 
         
     
@@ -62,6 +64,21 @@ class Process {
 
         void process() {
 
+        }
+
+        string encrypt(int r1, int r2) {
+            string str = "";
+            string chr = "";
+            for(int i = 0; i < encrypted.length(); i++) {
+                chr = encrypted[i];
+                str.append(a[distance(a.begin(), (find(a.begin(), a.end(), chr)) + r1 + r2) % length]);
+                r1++;
+                if(r1 % length == length - 1) {
+                    r2++;
+                }
+            }
+            
+            return str;
         }
 };
 
