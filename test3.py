@@ -1,4 +1,4 @@
-# space before A is at 68
+# space before A is at 70
 f = open("encrypt.txt")
 es = f.read()
 f.close()
@@ -32,16 +32,17 @@ def count(es, num):
     num = num + 1
     l = []
     for i in range(100):
-        if(i == len(a)):
-            num += 1
+        #if(i == len(a)):
+        #    num += 1
         if ord(es[i]) + num == ord(es[i+num]):
             l.append(i)
             #print(s[i], s[i+num])
     print(l)
     return l
 
-indices = count(es, 1)
+#indices = count(es, 1)
 print()
+indices = [70]
 num = 0
 num2 = 0
 found = False
@@ -68,20 +69,43 @@ for i in indices:
         break
 
 found = True
-num = 63
+num -= 1
+#num = 70
 if found:
     decrypted = ""
     index = 0
-    for i in range(len(es)):
-        # initial = (encrypted - (rotors + slide)) % 47
-        index = (a.index(es[i]) - (num + i)) % len(a)
-        decrypted += a[index]
+    n = -1
+    inc = 0
+    #while(" A " not in decrypted):
+    #if True:
+    #while(decrypted[:101].count(".") != 1):
+    while decrypted[:100].count(". ") != 1:
+        if(n == 6):
+            break
+        decrypted = ""
+        n += 1#
+        inc = 0
+        for i in range(len(es)):
+            if (i+n+1) % 47 == 0 and i != 0:
+                inc += 1
+            index = (a.index(es[i]) - (num + i + inc)) % len(a)
+            # initial = (encrypted - (rotors + slide)) % 47
+            decrypted += a[index]
+        #print(encrypt(a, decrypted, n, num - n))
+        print()
+        #print(es)
+        print()
+        print(decrypted)
+        print()
+        #print(decrypted[:100].count(" "))
 
     print()
-    print(decrypted)
+    #print(decrypted)
     print()
+    print(n, num-n)
+    #print(encrypt(a, decrypted, ))
 
-    tup = (-1, -1)
+'''    tup = (-1, -1)
 
     for p in range(len(a)):
         for q in range(len(a)):
@@ -89,3 +113,6 @@ if found:
                 tup = (p, q)
 
     print(tup)
+'''
+
+#ALAN TURING, AN ENGLISH MATHEMATICIAN, LOGJDJAN, AND CRYPTANALYST, WAS A COMPUTER PIONEER,.PFTEN REM
