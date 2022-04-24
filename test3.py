@@ -31,7 +31,7 @@ print(es)
 def count(es, num):
     num = num + 1
     l = []
-    for i in range(100):
+    for i in range(1, 100):
         #if(i == len(a)):
         #    num += 1
         if ord(es[i]) + num == ord(es[i+num]):
@@ -40,9 +40,8 @@ def count(es, num):
     print(l)
     return l
 
-#indices = count(es, 1)
+indices = count(es, 1)
 print()
-indices = [70]
 num = 0
 num2 = 0
 found = False
@@ -63,8 +62,8 @@ for i in indices:
     #print(es[i])
     #print((36 + i + 47) % 48)
     #print(a[(36 + i + 47) % 48])
-
-    if(num == r2 % len(a)):
+    print(r1, r2)
+    if(num == num2):
         found = True
         break
 

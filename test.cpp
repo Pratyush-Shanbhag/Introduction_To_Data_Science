@@ -48,30 +48,43 @@ class Process {
         'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
         ' ', '.', ',', ';', '!', '?', '(', ')', '-', '\'', '"'};*/
-        vector<string> a = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-                            "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
-                            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", " ", ".", ",",
-                            ";", "!", "?", "(", ")", "-", "\'", "\""};
+        vector<string> a;
         
-        int length = 47;
+        unsigned int length;
+
+        vector<int> indices;
 
         
     
     public:
-        Process(string str) {
-            encrypted = str;
+        Process(Database* db) {
+            a =  = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+                            "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+                            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", " ", ".", ",",
+                            ";", "!", "?", "(", ")", "-", "\'", "\""};
+            
+            length = a.size();
+            
+            encrypted = db->getEncrypted();
         }
 
         void process() {
+            count();
+            findRotorSum();
 
+
+        }
+
+        int location(char chr) {
+            return distance(a.begin(), (find(a.begin(), a.end(), chr)));
         }
 
         string encrypt(int r1, int r2) {
             string str = "";
-            string chr = "";
+            char chr;
             for(int i = 0; i < encrypted.length(); i++) {
                 chr = encrypted[i];
-                str.append(a[distance(a.begin(), (find(a.begin(), a.end(), chr)) + r1 + r2) % length]);
+                str.append(a[(location(chr) + r1 + r2) % length]);
                 r1++;
                 if(r1 % length == length - 1) {
                     r2++;
@@ -80,6 +93,26 @@ class Process {
             
             return str;
         }
+
+        void count() {
+            int num = 2;
+            for(int i = 0; i < 100; i++) {
+                if(location(encrypted[i]) + num == location(encrypted[i+num]))
+                    indices.push_back(i);
+            }
+        }
+
+        int findRotorSum() {
+            int num1, num2;
+            int Aloc = 0;
+            int spaceLoc = 36;
+            for(unsigned int i = 0; i < indices.size(); i++) {
+                num1 = (location(encrypted[i]) - (spaceLoc + i)) % length;
+                num2 = (location(encrypted[i + 1]) - (Aloc + i + 1)) % length;
+                if(num1 == num2)
+                    return num1 - 1;
+            }
+        }
 };
 
 class OutputStream {
@@ -87,8 +120,8 @@ class OutputStream {
         void run(string str) {
             FileStream fs(str);
             string encrypted = fs.readFile();
-
-            Process p(encrypted);
+            Database db(encrypted);
+            Process p(&db);
             p.process();
         }
 };
