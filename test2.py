@@ -7,7 +7,6 @@
 '''f = open("encrypt.txt")
 s2 = f.read()
 f.close()'''
-from distutils.command.build_scripts import first_line_re
 
 
 a = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -44,7 +43,7 @@ print(es)
 def count(es, num):
     num = num + 1
     l = []
-    for i in range(len(s)-num):
+    for i in range(len(es)-num):
         if ord(es[i]) + num == ord(es[i+num]):
             l.append(i)
             #print(s[i], s[i+num])
