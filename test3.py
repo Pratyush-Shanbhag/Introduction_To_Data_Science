@@ -1,4 +1,7 @@
 # space before A is at 70
+import scipy as sp
+
+
 f = open("encrypt.txt")
 es = f.read()
 f.close()
@@ -7,6 +10,8 @@ a = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
         'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
         ' ', '.', ',', ';', '!', '?', '(', ')', '-', '\'', '"']
+
+print(len(a))
 
 def encrypt(a, s, r1 = 0, r2 = 47):
     e = 0
@@ -41,12 +46,15 @@ def count(es, num):
     return l
 
 indices = count(es, 1)
+# [16, 32, 42, 58, 70]
 print()
 num = 0
 num2 = 0
 found = False
+space = a.index(" ")
 for i in indices:
     r1 = a.index(es[i]) - (a.index(" ") + i)
+    print(f"r1 exp: {a.index(es[i])} - ({space} + {i})")
     #print(r1)
     #print(36 - )
     num = r1 % len(a)
@@ -55,6 +63,7 @@ for i in indices:
 
     r2 = a.index(es[i+1]) - (0 + i+1)
     num2 = r2 % len(a)
+    print(f"r2 exp: {a.index(es[i+1])} - (0 + {i} + 1)")
     print("r2:", num2)
     print()
     #print((3-5) % 27)
